@@ -86,34 +86,44 @@ CREATE TABLE CartItems (
 );
 
 -- Insert Sample Data
--- Categories
+-- Categories (10 chủ đề)
 INSERT INTO Categories (CategoryName, Description) VALUES 
-(N'Sách Truyện', N'Các tác phẩm văn học, truyện ngắn'),
-(N'Sách IT', N'Sách về công nghệ thông tin, lập trình'),
-(N'Sách Văn Học', N'Sách văn học cổ điển, hiện đại'),
-(N'Sách Phổ Thông', N'Sách giáo khoa, kiến thức phổ thông'),
-(N'Truyện Anime', N'Sách truyện tranh anime, manga');
+(N'Ngoại ngữ', N'Sách học ngoại ngữ, giao tiếp'),
+(N'Công nghệ thông tin', N'Sách về lập trình, CNTT'),
+(N'Luật', N'Sách pháp luật, văn bản pháp quy'),
+(N'Văn học', N'Sách văn học, truyện ngắn, tiểu thuyết'),
+(N'Khoa học kỹ thuật', N'Sách khoa học, kỹ thuật chuyên ngành'),
+(N'Công Nghệ ÔTÔ', N'Sách kỹ thuật ô tô, cơ khí'),
+(N'Truyền Thông Đa phương tiện', N'Sách truyền thông, báo chí, media'),
+(N'Quản Trị Kinh Doanh', N'Sách kinh doanh, quản trị doanh nghiệp'),
+(N'Dược', N'Sách y dược, dược liệu'),
+(N'Quan Hệ Công Chúng', N'Sách PR, marketing, truyền thông');
 
--- Publishers
+-- Publishers (10 nhà xuất bản)
 INSERT INTO Publishers (PublisherName, Address, Phone, Email) VALUES 
-(N'Nhà Xuất Bản Kim Đồng', N'Hà Nội', '0243933331', 'info@kimdonv.vn'),
-(N'Nhà Xuất Bản Trẻ', N'TP.HCM', '0283898989', 'info@nxbtre.com.vn'),
-(N'Nhà Xuất Bản Thế Giới', N'Hà Nội', '0243933333', 'info@thegioi.vn'),
-(N'Nhà Xuất Bản Hội Nhà Văn', N'Hà Nội', '0243933334', 'info@hoinhavvan.vn'),
-(N'Nhà Xuất Bản Phụ Nữ', N'Hà Nội', '0243933335', 'info@phunu.vn');
+(N'Nhà xuất bản Trẻ', N'124 Nguyễn Văn Cừ Q1.Tp.HCM', '19001560', 'info@nxbtre.com.vn'),
+(N'NXB Thống kê', N'Đồng Nai', '19001511', 'info@nxbthongke.vn'),
+(N'Kim Đồng', N'Tp.HCM', '19001570', 'info@nxbkimdong.vn'),
+(N'Đại học quốc gia', N'Tp.HCM', '0908419981', 'info@vnuhcm.edu.vn'),
+(N'Văn hóa nghệ thuật', N'Đà Nẵng', '0903118833', 'info@vhnt.vn'),
+(N'Giáo dục', N'81 Trần Hưng Đạo, Hà Nội', '02438220801', 'info@nxbgd.vn'),
+(N'Lao động', N'175 Giảng Võ, Đống Đa, Hà Nội', '02438515380', 'info@nxbld.vn'),
+(N'Chính trị Quốc gia Sự thật', N'24 Quang Trung, Hoàn Kiếm, Hà Nội', '02438221581', 'info@nxbctqg.vn'),
+(N'Phụ nữ Việt Nam', N'39 Hàng Chuối, Hai Bà Trưng, Hà Nội', '02439433236', 'info@nxbpn.vn'),
+(N'Thông tin và Truyền thông', N'115 Trần Duy Hưng, Cầu Giấy, Hà Nội', '02435563453', 'info@nxbtttt.vn');
 
--- Books
+-- Books (10 sách, CategoryID và PublisherID theo thứ tự INSERT trên)
 INSERT INTO Books (BookTitle, Author, Description, Price, Quantity, CategoryID, PublisherID, PublishedDate, IsActive) VALUES 
-(N'Những Đứa Trẻ Sáng Suốt', N'Nguyễn Nhật Ánh', N'Bộ truyện nổi tiếng về tuổi thơ', 85000, 50, 1, 1, '2015-01-01', 1),
-(N'Hoàng Tử Bé', N'Antoine de Saint-Exupéry', N'Bộ tiểu thuyết kỳ ảo', 120000, 30, 3, 3, '2016-06-15', 1),
-(N'Clean Code', N'Robert C. Martin', N'Hướng dẫn viết code sạch', 250000, 20, 2, 2, '2014-03-10', 1),
-(N'Code Hoàn Hảo', N'Steve McConnell', N'Lập trình tuyệt vời', 280000, 15, 2, 2, '2015-08-20', 1),
-(N'Tôi Thích Tiếng Anh', N'Võ Anh Tuấn', N'Hướng dẫn học tiếng Anh hiệu quả', 95000, 40, 4, 1, '2017-02-01', 1),
-(N'Naruto Tập 1', N'Masashi Kishimoto', N'Manga nổi tiếng thế giới', 65000, 100, 5, 1, '2018-01-10', 1),
-(N'One Piece Tập 1', N'Eiichiro Oda', N'Truyện tranh Manga kinh điển', 70000, 80, 5, 1, '2018-02-15', 1),
-(N'Chiến Thắng Kỳ Vọng', N'Napoleon Hill', N'Sách phát triển bản thân', 150000, 25, 4, 3, '2016-09-01', 1),
-(N'Lập Trình Python', N'Guido van Rossum', N'Hướng dẫn toàn diện Python', 320000, 10, 2, 2, '2017-05-10', 1),
-(N'Tủ Sách Vàng', N'Tác giả ẩn danh', N'Bộ sưu tập truyện ngắn', 200000, 18, 1, 3, '2016-11-20', 1);
+(N'Lập trình SQL Server', N'Nguyễn Nhật Ánh, Tô Hoài', N'Sách hướng dẫn SQL cơ bản', 150000, 50, 2, 4, GETDATE(), 1),
+(N'Tiếng Anh cho người mới', N'Huy Cận', N'Học giao tiếp cơ bản', 120000, 30, 1, 3, GETDATE(), 1),
+(N'Kỹ năng sống hiện đại', N'Xuân Quỳnh', N'Cải thiện tư duy', 95000, 100, 4, 1, GETDATE(), 1),
+(N'Lịch sử văn hóa Việt Nam', N'Nguyễn Du', N'Tìm hiểu cội nguồn', 210000, 20, 4, 5, GETDATE(), 1),
+(N'Cơ sở dữ liệu nâng cao', N'Nguyễn Nhật Ánh', N'Tối ưu hóa truy vấn', 185000, 15, 2, 4, GETDATE(), 1),
+(N'Luật dân sự 2024', N'Phan Khôi', N'Cập nhật thông tin luật mới', 130000, 40, 3, 2, GETDATE(), 1),
+(N'Vật lý nguyên tử', N'Trần Đăng Khoa', N'Khoa học chuyên sâu', 250000, 10, 5, 4, GETDATE(), 1),
+(N'Giải thuật và dữ liệu', N'Nam Cao', N'Cấu trúc dữ liệu cơ bản', 170000, 60, 2, 3, GETDATE(), 1),
+(N'Tiếng Nhật N5', N'', N'Sách học tiếng Nhật', 145000, 25, 1, 1, GETDATE(), 1),
+(N'Thiết kế đồ họa cơ bản', N'Nguyễn Ngọc Tư', N'Hướng dẫn sử dụng Tools', 300000, 12, 2, 5, GETDATE(), 1);
 
 -- Admin User
 INSERT INTO Users (FullName, Email, Password, Phone, DateOfBirth, Address, Role, IsActive) VALUES 
