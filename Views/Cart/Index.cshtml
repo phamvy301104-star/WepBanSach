@@ -35,7 +35,13 @@ else
                 <tr>
                     <td>@item.BookID</td>
                     <td>@item.Book.BookTitle</td>
-                    <td><img src="@item.Book.ImagePath" width="60" /></td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Book.ImagePath))
+                        {
+                            var imgSrc = item.Book.ImagePath.StartsWith("/") ? item.Book.ImagePath : "/Hinhsanpham/" + item.Book.ImagePath;
+                            <img src="@imgSrc" width="60" />
+                        }
+                    </td>
                     <td>@item.Quantity</td>
                     <td>@item.Book.Price.ToString("N0") VND</td>
                     <td>@((item.Quantity * item.Book.Price).ToString("N0")) VND</td>
