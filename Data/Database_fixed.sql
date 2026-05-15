@@ -251,7 +251,9 @@ CREATE TABLE Users (
 );
 
 INSERT INTO Users (FullName, Email, Password, Phone, DateOfBirth, Address, Role, IsActive)
-VALUES (N'Admin Manager', 'admin@bookstore.com', 'admin123', '0987654321', '1990-01-01', N'Hà Nội', 1, 1);
+VALUES 
+(N'Admin Manager', 'admin@bookstore.com', 'admin123', '0987654321', '1990-01-01', N'Hà Nội', 1, 1),
+(N'Nguyễn Văn An', 'user@bookstore.com', '123456', '0901111222', '1990-01-01', N'TP.HCM', 0, 1);
 GO
 
 -- ============================================================
