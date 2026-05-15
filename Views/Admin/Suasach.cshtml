@@ -43,7 +43,7 @@
         {
             var imgSrc = Model.ImagePath.StartsWith("/") ? Model.ImagePath : "/Hinhsanpham/" + Model.ImagePath;
             <br />
-            <img src="@imgSrc" alt="Ảnh bìa" style="max-height:120px;" />
+            <img src="@imgSrc" alt="Ảnh bìa" style="max-height:120px;" onerror="this.style.display='none'" />
         }
     </div>
 

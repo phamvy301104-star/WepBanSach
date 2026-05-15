@@ -39,7 +39,7 @@ else
                         @if (!string.IsNullOrEmpty(item.Book.ImagePath))
                         {
                             var imgSrc = item.Book.ImagePath.StartsWith("/") ? item.Book.ImagePath : "/Hinhsanpham/" + item.Book.ImagePath;
-                            <img src="@imgSrc" width="60" />
+                            <img src="@imgSrc" width="60" onerror="this.style.display='none'" />
                         }
                     </td>
                     <td>@item.Quantity</td>

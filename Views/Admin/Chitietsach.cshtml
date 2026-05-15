@@ -24,7 +24,7 @@
             @if (!string.IsNullOrEmpty(Model.ImagePath))
             {
                 var imgSrc = Model.ImagePath.StartsWith("/") ? Model.ImagePath : "/Hinhsanpham/" + Model.ImagePath;
-                <img src='@imgSrc' style="max-height:120px" />
+                <img src='@imgSrc' style="max-height:120px" onerror="this.style.display='none'" />
             }
         </dd>
 
