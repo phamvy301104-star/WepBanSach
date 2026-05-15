@@ -24,7 +24,8 @@
                 <a href="@Url.Action("Details", "Home", new { id = sach.BookID })">
                     @if (!string.IsNullOrEmpty(sach.ImagePath))
                     {
-                        <img alt="@sach.BookTitle" src="@sach.ImagePath" width="200" />
+                        var imgSrc = sach.ImagePath.StartsWith("/") ? sach.ImagePath : "/Hinhsanpham/" + sach.ImagePath;
+                        <img alt="@sach.BookTitle" src="@imgSrc" width="200" />
                     }
                     else
                     {

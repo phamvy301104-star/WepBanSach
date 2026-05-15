@@ -10,7 +10,8 @@
     <div class="col-md-4">
         @if (!string.IsNullOrEmpty(Model.ImagePath))
         {
-            <img src="@Model.ImagePath" class="img-fluid" alt="@Model.BookTitle" style="max-height:400px;" />
+            var imgSrc = Model.ImagePath.StartsWith("/") ? Model.ImagePath : "/Hinhsanpham/" + Model.ImagePath;
+            <img src="@imgSrc" class="img-fluid" alt="@Model.BookTitle" style="max-height:400px;" />
         }
         else
         {
