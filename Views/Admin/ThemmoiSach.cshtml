@@ -49,13 +49,6 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Ngaycapnhat", "Ngày cập nhật", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBox("PublishedDate", DateTime.Now.ToString("MM/dd/yyyy"), new { @class = "form-control", type = "date" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.Label("Soluongton", "Số lượng tồn", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.TextBox("Quantity", 1, new { @class = "form-control" })
