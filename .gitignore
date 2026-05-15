@@ -4,13 +4,12 @@
 *.suo
 *.userprefs
 
-# Build outputs
-bin/
-obj/
+# Build outputs - included for cross-machine compatibility
+# bin/
+# obj/
 
-# NuGet packages (sẽ được restore tự động)
-packages/
-!packages/repositories.config
+# NuGet packages - included for cross-machine compatibility
+# packages/
 
 # Logs
 *.log
