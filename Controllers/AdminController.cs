@@ -227,13 +227,14 @@ namespace WebBanSach.Controllers
                 return View();
             }
 
-            var fileName = System.IO.Path.GetFileName(fileUpload.FileName);
-            var path = System.IO.Path.Combine(Server.MapPath("~/Hinhsanpham"), fileName);
-
-            if (System.IO.File.Exists(path))
-                ViewBag.Thongbao = "Hình ảnh đã tồn tại";
-            else
-                fileUpload.SaveAs(path);
+            var fileExt = System.IO.Path.GetExtension(fileUpload.FileName);
+            var fileBase = System.IO.Path.GetFileNameWithoutExtension(fileUpload.FileName);
+            var fileName = fileBase + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + fileExt;
+            var folder = Server.MapPath("~/Hinhsanpham");
+            if (!System.IO.Directory.Exists(folder))
+                System.IO.Directory.CreateDirectory(folder);
+            var path = System.IO.Path.Combine(folder, fileName);
+            fileUpload.SaveAs(path);
 
             book.ImagePath = "/Hinhsanpham/" + fileName;
             book.CreatedDate = DateTime.Now;
@@ -313,10 +314,14 @@ namespace WebBanSach.Controllers
 
             if (fileUpload != null && fileUpload.ContentLength > 0)
             {
-                var fileName = System.IO.Path.GetFileName(fileUpload.FileName);
-                var path = System.IO.Path.Combine(Server.MapPath("~/Hinhsanpham"), fileName);
-                if (!System.IO.File.Exists(path))
-                    fileUpload.SaveAs(path);
+                var fileExt = System.IO.Path.GetExtension(fileUpload.FileName);
+                var fileBase = System.IO.Path.GetFileNameWithoutExtension(fileUpload.FileName);
+                var fileName = fileBase + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + fileExt;
+                var folder = Server.MapPath("~/Hinhsanpham");
+                if (!System.IO.Directory.Exists(folder))
+                    System.IO.Directory.CreateDirectory(folder);
+                var path = System.IO.Path.Combine(folder, fileName);
+                fileUpload.SaveAs(path);
                 existing.ImagePath = "/Hinhsanpham/" + fileName;
             }
 
