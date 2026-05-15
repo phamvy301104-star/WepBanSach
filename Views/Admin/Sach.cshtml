@@ -41,7 +41,7 @@
             <td>
                 @if (!string.IsNullOrEmpty(item.ImagePath))
                 {
-                    <img src='@Url.Content("~/Hinhsanpham/" + item.ImagePath)' style="height:55px" />
+                    <img src='@item.ImagePath' style="height:55px" />
                 }
             </td>
             <td>@item.CreatedDate.ToString("d/M/yyyy HH:mm:ss tt")</td>

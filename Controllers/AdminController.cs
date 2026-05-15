@@ -235,7 +235,7 @@ namespace WebBanSach.Controllers
             else
                 fileUpload.SaveAs(path);
 
-            book.ImagePath = fileName;
+            book.ImagePath = "/Hinhsanpham/" + fileName;
             book.CreatedDate = DateTime.Now;
             book.IsActive = true;
             db.Books.Add(book);
@@ -317,7 +317,7 @@ namespace WebBanSach.Controllers
                 var path = System.IO.Path.Combine(Server.MapPath("~/Hinhsanpham"), fileName);
                 if (!System.IO.File.Exists(path))
                     fileUpload.SaveAs(path);
-                existing.ImagePath = fileName;
+                existing.ImagePath = "/Hinhsanpham/" + fileName;
             }
 
             db.SaveChanges();

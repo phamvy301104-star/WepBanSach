@@ -42,7 +42,7 @@
         @if (!string.IsNullOrEmpty(Model.ImagePath))
         {
             <br />
-            <img src="@Url.Content("~/Hinhsanpham/" + Model.ImagePath)" alt="Ảnh bìa" style="max-height:120px;" />
+            <img src="@Model.ImagePath" alt="Ảnh bìa" style="max-height:120px;" />
         }
     </div>
 
