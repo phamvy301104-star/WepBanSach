@@ -1,0 +1,29 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userprefs
+
+# Build outputs
+bin/
+obj/
+
+# NuGet packages (sẽ được restore tự động)
+packages/
+!packages/repositories.config
+
+# Logs
+*.log
+
+# OS
+Thumbs.db
+Desktop.ini
+
+# Backup files
+*.bak
+*.tmp
+
+# Python scripts tạm
+fix_*.py
+debug_*.py
+check_*.py

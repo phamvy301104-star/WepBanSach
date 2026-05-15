@@ -1,0 +1,76 @@
+@model WebBanSach.Models.Book
+
+@{
+    ViewBag.Title = "Suasach";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>SỬA THÔNG TIN SÁCH</h2>
+
+@if (ViewBag.Thongbao != null)
+{
+    <div class="alert alert-warning">@ViewBag.Thongbao</div>
+}
+
+@using (Html.BeginForm("Suasach", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.BookID)
+
+    <div class="form-group">
+        <label>Mã sách</label>
+        <p class="form-control-static">@Model.BookID</p>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BookTitle, "Tên sách")
+        @Html.TextBoxFor(model => model.BookTitle, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Price, "Giá bán")
+        @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, "Mô tả")
+        <textarea name="Description" class="form-control tinymce" rows="6">@Html.Raw(Model.Description)</textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Ảnh bìa hiện tại</label>
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <br />
+            <img src="@Url.Content("~/Hinhsanpham/" + Model.ImagePath)" alt="Ảnh bìa" style="max-height:120px;" />
+        }
+    </div>
+
+    <div class="form-group">
+        <label>Chọn ảnh mới (để trống nếu không đổi)</label>
+        <input type="file" name="fileUpload" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PublishedDate, "Ngày xuất bản")
+        @Html.TextBoxFor(model => model.PublishedDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Quantity, "Số lượng tồn")
+        @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control", type = "number" })
+    </div>
+
+    <div class="form-group">
+        <label>Chủ đề</label>
+        @Html.DropDownList("CategoryID", (SelectList)ViewBag.MaCD, "-- Chọn chủ đề --", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label>Nhà xuất bản</label>
+        @Html.DropDownList("PublisherID", (SelectList)ViewBag.MaNXB, "-- Chọn NXB --", new { @class = "form-control" })
+    </div>
+
+    <input type="submit" value="LƯU THAY ĐỔI" class="btn btn-primary" />
+    @Html.ActionLink("VỀ TRANG QUẢN LÝ SÁCH", "Sach", null, new { @class = "btn btn-default" })
+}

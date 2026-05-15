@@ -1,0 +1,49 @@
+@model WebBanSach.Models.Book
+
+@{
+    ViewBag.Title = "Chitietsach";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>THÔNG TIN CHI TIẾT SÁCH</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Tên sách</dt>
+        <dd>@Html.DisplayFor(model => model.BookTitle)</dd>
+
+        <dt>Tác giả</dt>
+        <dd>@Html.DisplayFor(model => model.Author)</dd>
+
+        <dt>Giá bán</dt>
+        <dd>@Html.DisplayFor(model => model.Price)</dd>
+
+        <dt>Mô tả</dt>
+        <dd>@Html.Raw(model.Description)</dd>
+
+        <dt>Ảnh bìa</dt>
+        <dd>
+            @if (!string.IsNullOrEmpty(Model.ImagePath))
+            {
+                <img src='@Url.Content("~/Hinhsanpham/" + Model.ImagePath)' style="max-height:120px" />
+            }
+        </dd>
+
+        <dt>Ngày cập nhật</dt>
+        <dd>@Html.DisplayFor(model => model.CreatedDate)</dd>
+
+        <dt>Số lượng tồn</dt>
+        <dd>@Html.DisplayFor(model => model.Quantity)</dd>
+
+        <dt>Chủ đề</dt>
+        <dd>@(Model.Category != null ? Model.Category.CategoryName : "")</dd>
+
+        <dt>Nhà xuất bản</dt>
+        <dd>@(Model.Publisher != null ? Model.Publisher.PublisherName : "")</dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Suasach", new { id = Model.BookID }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Về danh sách", "Sach", null, new { @class = "btn btn-default" })
+</p>

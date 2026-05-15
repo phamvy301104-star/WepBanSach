@@ -1,0 +1,74 @@
+@model List<WebBanSach.Models.OrderDetail>
+
+@{
+    ViewBag.Title = "Chi Tiết Đơn Hàng";
+    var order = Model.FirstOrDefault()?.Order;
+}
+
+<div class="container mt-5">
+    <h2>Chi Tiết Đơn Hàng #@order?.OrderID</h2>
+
+    @if (order != null)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5>Thông Tin Đơn Hàng</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Khách hàng:</strong> @order.User.FullName</p>
+                <p><strong>Email:</strong> @order.User.Email</p>
+                <p><strong>Điện thoại:</strong> @order.User.Phone</p>
+                <p><strong>Ngày đặt:</strong> @order.OrderDate.ToString("dd/MM/yyyy HH:mm")</p>
+                <p><strong>Địa chỉ giao hàng:</strong> @order.ShippingAddress</p>
+                <p><strong>Ghi chú:</strong> @order.Note</p>
+            </div>
+        </div>
+
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Sách</th>
+                    <th>Giá</th>
+                    <th>Số Lượng</th>
+                    <th>Tổng Cộng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var detail in Model)
+                {
+                    <tr>
+                        <td>@detail.Book.BookTitle</td>
+                        <td>@detail.UnitPrice.ToString("C")</td>
+                        <td>@detail.Quantity</td>
+                        <td>@detail.TotalPrice.ToString("C")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Tổng Tiền: <span class="text-success">@order.TotalAmount.ToString("C")</span></h4>
+            </div>
+            <div class="col-md-6 text-right">
+                <div class="form-group">
+                    <label>Cập Nhật Trạng Thái:</label>
+                    <form action="@Url.Action("UpdateOrderStatus", "Admin")" method="post" class="form-inline">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="orderId" value="@order.OrderID">
+                        <select name="status" class="form-control mr-2">
+                            <option value="0" @(order.Status == 0 ? "selected" : "")>Chờ Xác Nhận</option>
+                            <option value="1" @(order.Status == 1 ? "selected" : "")>Đã Xác Nhận</option>
+                            <option value="2" @(order.Status == 2 ? "selected" : "")>Đang Giao</option>
+                            <option value="3" @(order.Status == 3 ? "selected" : "")>Đã Giao</option>
+                            <option value="4" @(order.Status == 4 ? "selected" : "")>Đã Hủy</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+
+    <a href="@Url.Action("Orders", "Admin")" class="btn btn-secondary mt-3">Quay Lại</a>
+</div>

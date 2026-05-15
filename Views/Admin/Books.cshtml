@@ -1,0 +1,69 @@
+@model PagedList.IPagedList<WebBanSach.Models.Book>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Quản Lý Sách";
+}
+
+<div class="container-fluid mt-5">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <h2>Quản Lý Sách</h2>
+            <a href="@Url.Action("CreateBook", "Admin")" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Thêm Sách Mới
+            </a>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Tên Sách</th>
+                <th>Tác Giả</th>
+                <th>Danh Mục</th>
+                <th>Nhà Xuất Bản</th>
+                <th>Giá</th>
+                <th>Số Lượng</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.BookID</td>
+                    <td>@book.BookTitle</td>
+                    <td>@book.Author</td>
+                    <td>@book.Category.CategoryName</td>
+                    <td>@book.Publisher.PublisherName</td>
+                    <td>@book.Price.ToString("C")</td>
+                    <td>@book.Quantity</td>
+                    <td>
+                        <a href="@Url.Action("EditBook", "Admin", new { id = book.BookID })" class="btn btn-warning btn-sm">Sửa</a>
+                        <a href="#" class="btn btn-danger btn-sm" onclick="deleteBook(@book.BookID); return false;">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <nav>
+        @Html.PagedListPager(Model, page => Url.Action("Books", new { page = page }))
+    </nav>
+</div>
+
+<script>
+    function deleteBook(bookId) {
+        if (confirm('Bạn có chắc muốn xóa sách này?')) {
+            $.ajax({
+                url: '@Url.Action("DeleteBook", "Admin")',
+                type: 'POST',
+                data: { id: bookId },
+                success: function () {
+                    location.reload();
+                }
+            });
+        }
+    }
+</script>

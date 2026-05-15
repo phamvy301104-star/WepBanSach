@@ -1,0 +1,66 @@
+@model PagedList.IPagedList<WebBanSach.Models.Book>
+@using PagedList.Mvc
+
+@functions {
+    static string Truncate(string input, int length)
+    {
+        if (string.IsNullOrEmpty(input)) return "";
+        if (input.Length <= length) return input;
+        return input.Substring(0, length) + "...";
+    }
+}
+
+@{
+    ViewBag.Title = "Sach";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>QUẢN LÝ THÔNG TIN SÁCH</h2>
+<p>
+    @Html.ActionLink("THÊM MỚI", "ThemmoiSach", null, new { @class = "btn btn-success" })
+</p>
+
+<table class="table table-bordered table-sm" style="font-size:13px">
+    <tr>
+        <th style="width:160px">Tên sách</th>
+        <th style="width:90px">Giá bán</th>
+        <th style="width:200px">Mô tả</th>
+        <th style="width:100px">Ảnh bìa</th>
+        <th style="width:130px">Ngày cập nhật</th>
+        <th style="width:70px">SL.Tồn</th>
+        <th style="width:100px">Tên chủ đề</th>
+        <th style="width:120px">Tên NXB</th>
+        <th style="width:130px"></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.BookTitle</td>
+            <td>@Html.DisplayFor(m => item.Price)</td>
+            <td>@Truncate(item.Description, 100)</td>
+            <td>
+                @if (!string.IsNullOrEmpty(item.ImagePath))
+                {
+                    <img src='@Url.Content("~/Hinhsanpham/" + item.ImagePath)' style="height:55px" />
+                }
+            </td>
+            <td>@item.CreatedDate.ToString("d/M/yyyy HH:mm:ss tt")</td>
+            <td>@item.Quantity</td>
+            <td>@(item.Category != null ? item.Category.CategoryName : "")</td>
+            <td>@(item.Publisher != null ? item.Publisher.PublisherName : "")</td>
+            <td>
+                @Html.ActionLink("Sửa", "Suasach", new { id = item.BookID }) |
+                @Html.ActionLink("Chi tiết", "Chitietsach", new { id = item.BookID }) |
+                @Html.ActionLink("Xóa", "Xoasach", new { id = item.BookID })
+            </td>
+        </tr>
+    }
+</table>
+
+<div>Trang @Model.PageNumber/@Model.PageCount</div>
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("Sach", new { page = page }))
+</div>
+<style>
+    .MenuTrang li { display: inline; }
+</style>

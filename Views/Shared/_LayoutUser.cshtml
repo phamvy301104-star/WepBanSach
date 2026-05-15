@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Book Store</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body { background: #fff; font-family: Arial, sans-serif; }
+        /* Top Bar */
+        .topbar { background: #222; color: #ccc; font-size: 13px; padding: 6px 0; }
+        .topbar a { color: #ccc; text-decoration: none; }
+        .topbar a:hover { color: #fff; }
+        /* Navbar */
+        .main-nav { background: #fff; border-bottom: 1px solid #eee; padding: 10px 0; }
+        .main-nav .navbar-nav .nav-link { color: #333 !important; font-weight: 600; text-transform: uppercase; font-size: 14px; padding: 8px 15px; }
+        .main-nav .navbar-nav .nav-link:hover { color: #4caf50 !important; }
+        .brand-logo { display: flex; align-items: center; justify-content: center; width: 80px; height: 80px; border: 3px solid #333; border-radius: 50%; font-weight: bold; font-size: 16px; line-height: 1.1; text-align: center; text-decoration: none; color: #333; }
+        .brand-logo:hover { text-decoration: none; color: #333; }
+        /* Search Row */
+        .search-row { background: #fff; border-top: 2px solid #eee; border-bottom: 2px solid #eee; padding: 12px 0; }
+        .btn-green { background: #4caf50; color: #fff; border: none; font-weight: 600; padding: 8px 20px; }
+        .btn-green:hover { background: #388e3c; color: #fff; }
+        .categories-dropdown { background: #4caf50; color: #fff; font-weight: 600; padding: 8px 18px; border: none; cursor: pointer; }
+        /* Sidebar */
+        .sidebar-menu { margin-bottom: 20px; }
+        .sidebar-header { background: #4caf50; color: #fff; padding: 8px 15px; font-weight: bold; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
+        .sidebar-header i { margin-right: 8px; }
+        .sidebar-list { list-style: none; padding: 0; margin: 0; border: 1px solid #ddd; border-top: none; }
+        .sidebar-list li a { display: block; padding: 7px 15px; color: #333; text-decoration: none; font-size: 14px; border-bottom: 1px solid #f0f0f0; }
+        .sidebar-list li a:hover { background: #f0f0f0; color: #4caf50; }
+        /* Content */
+        .main-content { padding: 20px 0; }
+        /* Footer */
+        footer { background: #f8f8f8; border-top: 1px solid #eee; padding: 20px 0; margin-top: 30px; }
+        footer p { color: #666; margin: 0; }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="topbar">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <i class="fas fa-envelope"></i> hello@colorlib.com &nbsp;&nbsp;
+                    Free Shipping for all Order of $99
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a> &nbsp;
+                    <a href="#"><i class="fab fa-twitter"></i></a> &nbsp;
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a> &nbsp;
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a> &nbsp;&nbsp;
+                    @if (Session["UserID"] != null)
+                    {
+                        <span><i class="fas fa-user"></i> @Session["FullName"]</span><text>&nbsp;&nbsp;</text>@Html.ActionLink("Đăng xuất", "Logout", "Account")
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Login", "Login", "Account")
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navbar -->
+    <nav class="main-nav navbar navbar-expand-lg">
+        <div class="container">
+            <a class="brand-logo" href='@Url.Action("Index", "Home")'>BOOK<br />STORE</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href='@Url.Action("Index", "Home")'>HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href='@Url.Action("Index", "Home")'>SHOP</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">PAGES</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">BLOG</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">CONTACT</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+                <a href="#" class="mr-3" style="color:#333;"><i class="fas fa-heart"></i> <sup>0</sup></a>
+                <a href='@Url.Action("Index", "Cart")' style="color:#333;">
+                    <i class="fas fa-shopping-bag"></i> <sup>0</sup>
+                </a>
+                <span class="ml-2" style="font-size:13px; color:#555;">item: $150.00</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Row -->
+    <div class="search-row">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <button class="categories-dropdown w-100">
+                        <i class="fas fa-bars"></i> CHỦ ĐỀ SÁCH &nbsp;<i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <select class="form-control" style="max-width:160px;">
+                            <option>All Categories</option>
+                        </select>
+                        <input type="text" class="form-control" placeholder="What do you need?">
+                        <div class="input-group-append">
+                            <button class="btn btn-green">SEARCH</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 text-right">
+                    <i class="fas fa-phone" style="color:#4caf50;"></i>
+                    <strong>+84 23456789</strong><br />
+                    <small style="color:#888;">support 24/7 time</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Content with Sidebar -->
+    <div class="container main-content">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                @{
+                    var categories = ViewBag.Categories as IEnumerable<WebBanSach.Models.Category>;
+                    var publishers = ViewBag.Publishers as IEnumerable<WebBanSach.Models.Publisher>;
+                }
+                <div class="sidebar-menu">
+                    <div class="sidebar-header">
+                        <span><i class="fas fa-bars"></i> CHỦ ĐỀ</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <ul class="sidebar-list">
+                        @if (categories != null)
+                        {
+                            foreach (var cat in categories)
+                            {
+                                <li>
+                                    <a href='@Url.Action("Category", "Home", new { id = cat.CategoryID })'>@cat.CategoryName</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="sidebar-menu">
+                    <div class="sidebar-header">
+                        <span><i class="fas fa-bars"></i> Nhà xuất bản</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <ul class="sidebar-list">
+                        @if (publishers != null)
+                        {
+                            foreach (var pub in publishers)
+                            {
+                                <li>
+                                    <a href='@Url.Action("Publisher", "Home", new { id = pub.PublisherID })'>@pub.PublisherName</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            <!-- Main Content -->
+            <div class="col-md-9">
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        @TempData["SuccessMessage"]
+                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                    </div>
+                }
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        @TempData["ErrorMessage"]
+                        <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                    </div>
+                }
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2024 Book Store. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

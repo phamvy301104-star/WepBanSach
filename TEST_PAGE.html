@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebBanSach - Database Test</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin-top: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status-ok {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .status-error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: monospace;
+            border-left: 4px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3>📚 WebBanSach - Database & Setup Status</h3>
+            </div>
+            <div class="card-body">
+                <h5>Thông Tin Dự Án</h5>
+                <table class="table table-sm">
+                    <tr>
+                        <td><strong>Tên Dự Án:</strong></td>
+                        <td>WebBanSach - ASP.NET MVC5</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Folder:</strong></td>
+                        <td><code>c:\TH\WebBanSach.MVC5</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Database:</strong></td>
+                        <td><span class="status-ok">✓ WebBanSach (Created)</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tables:</strong></td>
+                        <td>
+                            <span class="status-ok">✓ 7 Tables</span>
+                            <br>
+                            <small>Categories, Publishers, Books, Users, Orders, OrderDetails, CartItems</small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sample Data:</strong></td>
+                        <td>
+                            <span class="status-ok">✓ Ready</span>
+                            <br>
+                            <small>10 Books | 2 Users | 5 Categories | 5 Publishers</small>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5>✅ Đã Chuẩn Bị</h5>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>✅ 8 Models (Category, Publisher, Book, User, Order, OrderDetail, CartItem, WebBanSachContext)</li>
+                    <li>✅ 4 Controllers (Home, Account, Cart, Admin)</li>
+                    <li>✅ 12 Views (Home, Account, Cart, Admin + Layout)</li>
+                    <li>✅ 7 Database Tables với quan hệ FK</li>
+                    <li>✅ Dữ liệu mẫu (10 sách, 2 người dùng)</li>
+                    <li>✅ Web.config & Global.asax</li>
+                    <li>✅ NuGet packages config</li>
+                    <li>✅ Documentation (README, Hướng dẫn, LAB Summary)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-warning text-dark">
+                <h5>⚠️ Cần Chuẩn Bị</h5>
+            </div>
+            <div class="card-body">
+                <ol>
+                    <li><strong>Visual Studio</strong> (2015 hoặc mới hơn)
+                        <br><small>Download miễn phí: https://visualstudio.microsoft.com/vs/community/</small>
+                    </li>
+                    <li><strong>.NET Framework 4.5.2</strong> (thường đi kèm VS)</li>
+                    <li><strong>NuGet Packages:</strong>
+                        <div class="code-block mt-2">
+Install-Package EntityFramework -Version 6.2.0<br>
+Install-Package PagedList -Version 1.17.0.0<br>
+Install-Package PagedList.Mvc -Version 4.5.0.0
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5>📋 Database Credentials</h5>
+            </div>
+            <div class="card-body">
+                <h6>Connection String:</h6>
+                <div class="code-block">
+Data Source=.\SQLEXPRESS;Initial Catalog=WebBanSach;Integrated Security=true;MultipleActiveResultSets=True;App=EntityFramework
+                </div>
+
+                <h6 class="mt-3">Tài Khoản Admin:</h6>
+                <table class="table table-sm">
+                    <tr>
+                        <td><strong>Email:</strong></td>
+                        <td><code>admin@bookstore.com</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Password:</strong></td>
+                        <td><code>admin123</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Role:</strong></td>
+                        <td>Admin (1)</td>
+                    </tr>
+                </table>
+
+                <h6 class="mt-3">Tài Khoản User:</h6>
+                <table class="table table-sm">
+                    <tr>
+                        <td><strong>Email:</strong></td>
+                        <td><code>user@example.com</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Password:</strong></td>
+                        <td><code>user123</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Role:</strong></td>
+                        <td>User (0)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5>🚀 Hướng Dẫn Setup</h5>
+            </div>
+            <div class="card-body">
+                <h6>Bước 1: Cài Visual Studio</h6>
+                <ol>
+                    <li>Truy cập: https://visualstudio.microsoft.com/vs/community/</li>
+                    <li>Tải & cài đặt</li>
+                    <li>Chọn: <strong>ASP.NET và phát triển web</strong></li>
+                </ol>
+
+                <h6 class="mt-3">Bước 2: Mở Project</h6>
+                <ol>
+                    <li>Visual Studio → File → Open → Project/Solution</li>
+                    <li>Chọn: <code>c:\TH\WebBanSach.MVC5\WebBanSach.sln</code></li>
+                </ol>
+
+                <h6 class="mt-3">Bước 3: Cài NuGet Packages</h6>
+                <ol>
+                    <li>Tools → NuGet Package Manager → Package Manager Console</li>
+                    <li>Chạy các lệnh:
+                        <div class="code-block mt-2">
+Install-Package EntityFramework -Version 6.2.0<br>
+Install-Package PagedList -Version 1.17.0.0<br>
+Install-Package PagedList.Mvc -Version 4.5.0.0
+                        </div>
+                    </li>
+                </ol>
+
+                <h6 class="mt-3">Bước 4: Build & Run</h6>
+                <ol>
+                    <li>Build → Build Solution</li>
+                    <li>Nhấn <strong>F5</strong> hoặc Ctrl+F5</li>
+                    <li>Chờ IIS Express khởi động</li>
+                    <li>Browser sẽ mở: <code>http://localhost:port/Home/Index</code></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5>📂 Project Structure</h5>
+            </div>
+            <div class="card-body">
+                <div class="code-block">
+c:\TH\WebBanSach.MVC5/<br>
+├── Models/               (8 tệp C#)<br>
+├── Controllers/          (4 tệp C#)<br>
+├── Views/                (12 tệp .cshtml)<br>
+├── App_Start/            (RouteConfig, FilterConfig)<br>
+├── Content/Images/       (Folder upload ảnh)<br>
+├── Data/                 (Database.sql)<br>
+├── Web.config<br>
+├── Global.asax<br>
+├── packages.config<br>
+├── WebBanSach.csproj<br>
+├── WebBanSach.sln<br>
+├── README.md<br>
+├── HUONG_DAN_SU_DUNG.md<br>
+├── LAB_SUMMARY.md<br>
+├── SETUP_GUIDE.md<br>
+└── FILE_LIST.md
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5>📊 Tính Năng Hoàn Thành</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Lab</th>
+                        <th>Tính Năng</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>Lab 5</td>
+                        <td>Hiển thị sách + Danh mục + Chi tiết</td>
+                        <td><span class="status-ok">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Lab 7-8</td>
+                        <td>Đăng ký + Đăng nhập + Admin</td>
+                        <td><span class="status-ok">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Lab 9-10</td>
+                        <td>Giỏ hàng + Thanh toán</td>
+                        <td><span class="status-ok">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Lab 11-12</td>
+                        <td>Phân trang + CRUD + Upload ảnh + Quản lý đơn hàng</td>
+                        <td><span class="status-ok">✓</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-light text-dark">
+                <h5>💡 Lưu Ý</h5>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>✅ Database đã tạo & có dữ liệu mẫu</li>
+                    <li>✅ Tất cả code đã sẵn sàng (Models, Controllers, Views)</li>
+                    <li>✅ Connection String đã cấu hình</li>
+                    <li>⚠️ Cần cài Visual Studio + .NET Framework</li>
+                    <li>⚠️ Cần cài NuGet Packages (EntityFramework, PagedList)</li>
+                    <li>⚠️ SQL Server phải đang chạy</li>
+                    <li>📝 Folder <code>Content/Images</code> cần được tạo (để upload ảnh)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="alert alert-success mt-4">
+            <h4>🎉 Sẵn Sàng!</h4>
+            <p>Dự án đã được chuẩn bị đầy đủ. Hãy làm theo hướng dẫn ở trên để setup & chạy ứng dụng.</p>
+            <p><strong>Tài liệu hướng dẫn:</strong></p>
+            <ul>
+                <li>📖 README.md - Giới thiệu dự án</li>
+                <li>📖 HUONG_DAN_SU_DUNG.md - Hướng dẫn chi tiết</li>
+                <li>📖 LAB_SUMMARY.md - Tóm tắt các Lab</li>
+                <li>📖 SETUP_GUIDE.md - Hướng dẫn setup (chỉ cần làm 1 lần)</li>
+                <li>📖 FILE_LIST.md - Danh sách tất cả tệp</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

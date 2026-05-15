@@ -1,0 +1,89 @@
+@model WebBanSach.Models.Book
+
+@{
+    ViewBag.Title = "ThemmoiSach";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>THÊM SÁCH MỚI</h2>
+
+@if (ViewBag.Thongbao != null)
+{
+    <div class="alert alert-warning">@ViewBag.Thongbao</div>
+}
+
+@using (Html.BeginForm("ThemmoiSach", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.Label("Tensach", "Tên sách", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("BookTitle", null, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Giaban", "Giá bán", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("Price", null, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Mota", "Mô tả", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <textarea name="Description" class="form-control tinymce" rows="6">Mô tả thông tin sách</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Anhbia", "Ảnh bìa", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="fileUpload" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Ngaycapnhat", "Ngày cập nhật", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("PublishedDate", DateTime.Now.ToString("MM/dd/yyyy"), new { @class = "form-control", type = "date" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Soluongton", "Số lượng tồn", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("Quantity", 1, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("MaCD", "Tên chủ đề", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CategoryID", (SelectList)ViewBag.MaCD, "-- Chọn chủ đề --", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("MaNXB", "Nhà xuất bản", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PublisherID", (SelectList)ViewBag.MaNXB, "-- Chọn NXB --", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="THÊM MỚI" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("VỀ TRANG QUẢN LÝ SÁCH", "Sach")
+</div>

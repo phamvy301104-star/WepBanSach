@@ -1,0 +1,57 @@
+@{
+    ViewBag.Title = "Admin Dashboard";
+}
+
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Tổng Sách</h5>
+                    <h2>@ViewBag.TotalBooks</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Tổng Đơn Hàng</h5>
+                    <h2>@ViewBag.TotalOrders</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Tổng Người Dùng</h5>
+                    <h2>@ViewBag.TotalUsers</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Tổng Doanh Thu</h5>
+                    <h2>@ViewBag.TotalRevenue.ToString("C")</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h3>Quản Lý</h3>
+            <div class="list-group">
+                <a href="@Url.Action("Books", "Admin")" class="list-group-item list-group-item-action">
+                    Quản Lý Sách
+                </a>
+                <a href="@Url.Action("Orders", "Admin")" class="list-group-item list-group-item-action">
+                    Quản Lý Đơn Hàng
+                </a>
+                <a href="@Url.Action("Logout", "Account")" class="list-group-item list-group-item-action text-danger">
+                    Đăng Xuất
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
