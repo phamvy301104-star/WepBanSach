@@ -152,8 +152,24 @@ namespace WebBanSach.Controllers
             db.CartItems.RemoveRange(cartItems);
             db.SaveChanges();
 
-            TempData["SuccessMessage"] = "Order placed successfully!";
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("OrderConfirm", new { id = order.OrderID });
+        }
+
+        // GET: Cart/OrderConfirm
+        public ActionResult OrderConfirm(int id)
+        {
+            if (Session["UserID"] == null)
+                return RedirectToAction("Login", "Account");
+
+            int userId = (int)Session["UserID"];
+            var order = db.Orders
+                .Include("OrderDetails.Book")
+                .FirstOrDefault(o => o.OrderID == id && o.UserID == userId);
+
+            if (order == null)
+                return HttpNotFound();
+
+            return View(order);
         }
 
         protected override void Dispose(bool disposing)

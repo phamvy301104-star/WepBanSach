@@ -1,0 +1,76 @@
+@model WebBanSach.Models.Order
+@{
+    ViewBag.Title = "Xác nhận đơn hàng";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div style="max-width:750px; margin:30px auto; padding:20px; border:1px solid #ddd; border-radius:8px; background:#fff;">
+    <h2 style="color:#2e7d32; text-align:center;">
+        <i class="fas fa-check-circle"></i> Đặt hàng thành công!
+    </h2>
+    <hr />
+
+    <table style="width:100%; margin-bottom:15px;">
+        <tr>
+            <td><strong>Mã đơn hàng:</strong></td>
+            <td>#@Model.OrderID</td>
+        </tr>
+        <tr>
+            <td><strong>Ngày đặt:</strong></td>
+            <td>@Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+        </tr>
+        <tr>
+            <td><strong>Địa chỉ giao hàng:</strong></td>
+            <td>@Model.ShippingAddress</td>
+        </tr>
+        @if (!string.IsNullOrWhiteSpace(Model.Note))
+        {
+            <tr>
+                <td><strong>Ghi chú:</strong></td>
+                <td>@Model.Note</td>
+            </tr>
+        }
+        <tr>
+            <td><strong>Trạng thái:</strong></td>
+            <td><span style="color:orange; font-weight:bold;">Chờ xác nhận</span></td>
+        </tr>
+    </table>
+
+    <h4>Chi tiết sản phẩm đã đặt:</h4>
+    <table class="table" style="width:100%; border-collapse:collapse;">
+        <thead style="background:#2e7d32; color:#fff;">
+            <tr>
+                <th style="padding:8px;">STT</th>
+                <th style="padding:8px;">Tên sách</th>
+                <th style="padding:8px; text-align:center;">Số lượng</th>
+                <th style="padding:8px; text-align:right;">Đơn giá</th>
+                <th style="padding:8px; text-align:right;">Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int stt = 1; }
+            @foreach (var item in Model.OrderDetails)
+            {
+                <tr style="border-bottom:1px solid #eee;">
+                    <td style="padding:8px; text-align:center;">@(stt++)</td>
+                    <td style="padding:8px;">@item.Book.BookTitle</td>
+                    <td style="padding:8px; text-align:center;">@item.Quantity</td>
+                    <td style="padding:8px; text-align:right;">@item.UnitPrice.ToString("N0") đ</td>
+                    <td style="padding:8px; text-align:right;">@item.TotalPrice.ToString("N0") đ</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr style="background:#f5f5f5; font-weight:bold;">
+                <td colspan="4" style="padding:10px; text-align:right;">Tổng cộng:</td>
+                <td style="padding:10px; text-align:right; color:#c62828; font-size:1.1em;">
+                    @Model.TotalAmount.ToString("N0") đ
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div style="text-align:center; margin-top:20px;">
+        @Html.ActionLink("← Tiếp tục mua sắm", "Index", "Home", null, new { @class = "btn btn-default", style = "margin-right:10px;" })
+    </div>
+</div>
