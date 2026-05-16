@@ -28,8 +28,15 @@ for %%p in (
     if exist %%p set MSBUILD=%%p
 )
 
+REM Copy DLL quan trong tu packages vao bin truoc khi build
+if not exist "bin" mkdir bin
+for /r "packages" %%f in (System.Web.WebPages.Razor.dll System.Web.Mvc.dll System.Web.Razor.dll System.Web.WebPages.dll System.Web.WebPages.Deployment.dll Microsoft.Web.Infrastructure.dll EntityFramework.dll EntityFramework.SqlServer.dll) do (
+    if exist "%%f" copy /Y "%%f" "bin\" >nul 2>&1
+)
+echo  - Da copy DLL tu packages vao bin.
+
 if defined MSBUILD (
-    %MSBUILD% "WebBanSach.csproj" /p:Configuration=Debug /t:Build /v:minimal
+    %MSBUILD% "WebBanSach.csproj" /p:Configuration=Debug /t:Rebuild /v:minimal
     if %ERRORLEVEL% NEQ 0 (
         echo FAILED: MSBuild error. Mo Visual Studio va chon Rebuild Solution.
         pause
