@@ -7,6 +7,11 @@ echo.
 
 cd /d "%~dp0.."
 
+echo [0/4] Stopping IIS Express (neu dang chay)...
+taskkill /F /IM iisexpress.exe >nul 2>&1
+echo Done.
+echo.
+
 echo [1/4] Pulling latest code from GitHub...
 git pull origin main
 if %ERRORLEVEL% NEQ 0 (
