@@ -96,6 +96,22 @@ namespace WebBanSach.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Cart/Checkout
+        public ActionResult Checkout()
+        {
+            if (Session["UserID"] == null)
+                return RedirectToAction("Login", "Account");
+
+            int userId = (int)Session["UserID"];
+            var cartItems = db.CartItems.Where(c => c.UserID == userId)
+                .Include("Book").ToList();
+
+            if (cartItems.Count == 0)
+                return RedirectToAction("Index");
+
+            return View(cartItems);
+        }
+
         // POST: Cart/Checkout
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -156,7 +172,7 @@ namespace WebBanSach.Controllers
                 {
                     int maKH = (int)Session["MaKH"];
                     var maDonHangList = db.Database.SqlQuery<int>(
-                        "INSERT INTO DONDATHANG (Dathanhtoan, Tinhtranggiaohang, Ngaydat, Ngaygiao, MaKH) VALUES (0, 0, GETDATE(), NULL, @p0); SELECT CAST(SCOPE_IDENTITY() AS INT)",
+                        "INSERT INTO DONDATHANG (Dathanhtoan, Tinhtranggiaohang, Ngaydat, Ngaygiao, MaKH) VALUES (0, 0, GETDATE(), DATEADD(day,5,GETDATE()), @p0); SELECT CAST(SCOPE_IDENTITY() AS INT)",
                         maKH).ToList();
 
                     if (maDonHangList.Count > 0)

@@ -1,0 +1,75 @@
+@model List<WebBanSach.Models.CartItem>
+@{
+    ViewBag.Title = "Xác nhận đặt hàng";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    decimal totalPrice = Model.Sum(x => x.Quantity * x.Book.Price);
+}
+
+<div style="max-width:750px; margin:20px auto;">
+    <h2>Xác nhận đặt hàng</h2>
+    <hr />
+
+    <h4>Sản phẩm trong đơn:</h4>
+    <table class="table table-bordered">
+        <thead style="background:#2e7d32; color:#fff;">
+            <tr>
+                <th>Tên sách</th>
+                <th style="text-align:center;">Số lượng</th>
+                <th style="text-align:right;">Đơn giá</th>
+                <th style="text-align:right;">Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Book.BookTitle</td>
+                    <td style="text-align:center;">@item.Quantity</td>
+                    <td style="text-align:right;">@item.Book.Price.ToString("N0") đ</td>
+                    <td style="text-align:right;">@((item.Quantity * item.Book.Price).ToString("N0")) đ</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr style="font-weight:bold; background:#f5f5f5;">
+                <td colspan="3" style="text-align:right;">Tổng cộng:</td>
+                <td style="text-align:right; color:#c62828; font-size:1.1em;">@totalPrice.ToString("N0") đ</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <h4>Thông tin giao hàng:</h4>
+    @using (Html.BeginForm("Checkout", "Cart", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <table style="width:100%;">
+            <tr style="height:45px;">
+                <td style="width:160px;"><strong>Địa chỉ giao hàng:</strong></td>
+                <td>
+                    <input type="text" name="shippingAddress" style="width:100%; padding:6px;"
+                           placeholder="Nhập địa chỉ nhận hàng..."
+                           value="@Session["Email"]" required />
+                </td>
+            </tr>
+            <tr style="height:45px;">
+                <td><strong>Ngày đặt hàng:</strong></td>
+                <td>@DateTime.Now.ToString("dd/MM/yyyy HH:mm")</td>
+            </tr>
+            <tr style="height:45px;">
+                <td><strong>Dự kiến giao hàng:</strong></td>
+                <td>@DateTime.Now.AddDays(5).ToString("dd/MM/yyyy")</td>
+            </tr>
+            <tr style="height:45px;">
+                <td><strong>Ghi chú:</strong></td>
+                <td><textarea name="note" style="width:100%; padding:6px;" rows="2" placeholder="Ghi chú thêm (nếu có)..."></textarea></td>
+            </tr>
+        </table>
+
+        <div style="text-align:center; margin-top:20px;">
+            @Html.ActionLink("← Quay lại giỏ hàng", "Index", "Cart", null, new { @class = "btn btn-default", style = "margin-right:15px;" })
+            <input type="submit" value="✔ Xác nhận mua hàng"
+                   class="btn btn-success"
+                   style="padding:10px 30px; font-size:1em; font-weight:bold;" />
+        </div>
+    }
+</div>
