@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using WebBanSach.Models;
+using System.Data.SqlClient;
 
 namespace WebBanSach.Controllers
 {
@@ -146,6 +147,30 @@ namespace WebBanSach.Controllers
                     TotalPrice = cartItem.Book.Price * cartItem.Quantity
                 };
                 db.OrderDetails.Add(orderDetail);
+            }
+
+            // Lưu vào DONDATHANG + CHITIETDONTHANG (bảng SQL gốc)
+            if (Session["MaKH"] != null)
+            {
+                try
+                {
+                    int maKH = (int)Session["MaKH"];
+                    var maDonHangList = db.Database.SqlQuery<int>(
+                        "INSERT INTO DONDATHANG (Dathanhtoan, Tinhtranggiaohang, Ngaydat, Ngaygiao, MaKH) VALUES (0, 0, GETDATE(), NULL, @p0); SELECT CAST(SCOPE_IDENTITY() AS INT)",
+                        maKH).ToList();
+
+                    if (maDonHangList.Count > 0)
+                    {
+                        int maDonHang = maDonHangList[0];
+                        foreach (var cartItem in cartItems)
+                        {
+                            db.Database.ExecuteSqlCommand(
+                                "INSERT INTO CHITIETDONTHANG (MaDonHang, Masach, Soluong, Dongia) VALUES (@p0, @p1, @p2, @p3)",
+                                maDonHang, cartItem.BookID, cartItem.Quantity, cartItem.Book.Price);
+                        }
+                    }
+                }
+                catch { /* bỏ qua nếu lỗi FK */ }
             }
 
             // Clear cart

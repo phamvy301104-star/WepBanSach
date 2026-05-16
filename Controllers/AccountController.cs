@@ -1,4 +1,5 @@
 using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
 using WebBanSach.Models;
@@ -30,12 +31,12 @@ namespace WebBanSach.Controllers
             bool hasError = false;
             if (string.IsNullOrEmpty(hoTen))
             {
-                ViewData["Loi_HoTen"] = "Ho ten khach hang khong duoc de trong";
+                ViewData["Loi_HoTen"] = "Họ tên không được để trống";
                 hasError = true;
             }
             if (string.IsNullOrEmpty(dienThoai))
             {
-                ViewData["Loi_DienThoai"] = "Phai nhap dien thoai";
+                ViewData["Loi_DienThoai"] = "Phải nhập điện thoại";
                 hasError = true;
             }
             if (hasError)
@@ -62,7 +63,22 @@ namespace WebBanSach.Controllers
             db.Users.Add(user);
             db.SaveChanges();
 
-            TempData["SuccessMessage"] = "Dang ky thanh cong! Vui long dang nhap.";
+            // Cũng lưu vào bảng KHACHHANG
+            try
+            {
+                db.Database.ExecuteSqlCommand(
+                    "INSERT INTO KHACHHANG (HoTen, Taikhoan, Matkhau, Email, DiachiKH, DienthoaiKH, Ngaysinh) VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6)",
+                    hoTen ?? "",
+                    tenDN ?? "",
+                    matkhau ?? "",
+                    email ?? "",
+                    diaChi ?? "",
+                    dienThoai ?? "",
+                    ngaySinh);
+            }
+            catch { /* bỏ qua nếu trùng */ }
+
+            TempData["SuccessMessage"] = "Đăng ký thành công! Vui lòng đăng nhập.";
             return RedirectToAction("Login");
         }
 
@@ -101,6 +117,17 @@ namespace WebBanSach.Controllers
                 Session["FullName"] = user.FullName;
                 Session["Email"] = user.Email;
                 Session["Role"] = user.Role;
+
+                // Lấy MaKH từ KHACHHANG để dùng khi đặt hàng
+                try
+                {
+                    var maKH = db.Database.SqlQuery<int?>(
+                        "SELECT TOP 1 MaKH FROM KHACHHANG WHERE Email = @p0",
+                        user.Email).FirstOrDefault();
+                    if (maKH.HasValue)
+                        Session["MaKH"] = maKH.Value;
+                }
+                catch { }
 
                 if (user.Role == 1)
                     return RedirectToAction("Dashboard", "Admin");
